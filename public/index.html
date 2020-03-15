@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% if (htmlWebpackPlugin.options.base){ %>
+  <base href="<%= htmlWebpackPlugin.options.base %>">
+  <% } %>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+
+  <% if (htmlWebpackPlugin.options.title){ %>
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta name="keywords" content="<%= htmlWebpackPlugin.options.keywords %>" />
+  <meta name="description" content="<%= htmlWebpackPlugin.options.description %>">
+  <% } %>
+
+  <link href="<%= BASE_URL %>static/css/reset.css?v=<%= VUE_APP_BUILD_VERSION %>" rel="stylesheet">
+  <link href="<%= BASE_URL %>favicon.ico?v=<%= VUE_APP_BUILD_VERSION %>" rel="icon">
+</head>
+
+<body ontouchstart="">
+  <noscript>
+    <strong>请您启用浏览器的 JavaScript 功能，以保证我们能为您正常提供服务。</strong>
+  </noscript>
+
+  <div id="app"></div>
+</body>
+
+</html>

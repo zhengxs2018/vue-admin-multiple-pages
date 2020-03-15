@@ -1,0 +1,23 @@
+.layout {
+  position: relative;
+  z-index : 1;
+  height  : 100%;
+}
+
+.layout-header {
+  position        : relative;
+  z-index         : 2;
+  display         : flex;
+  padding         : 0;
+  height          : 50px !important;
+  color           : #fff;
+  background-color: #1E88E5;
+
+  &>.navbar {
+    flex: 1;
+  }
+}
+
+.layout-aside {
+  background: none;
+}

@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    // 编辑器拓展
+    "octref.vetur",
+    "editorconfig.editorconfig",
+    // 代码检查
+    "dbaeumer.vscode-eslint",
+    "streetsidesoftware.code-spell-checker",
+    // 版本管理
+    "eamodio.gitlens",
+    "xyz.local-history",
+    // npm
+    "christian-kohler.npm-intellisense",
+    "axetroy.vscode-npm-import-package-version"
+  ]
+}

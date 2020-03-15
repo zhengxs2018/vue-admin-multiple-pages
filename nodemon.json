@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    "*.test.js",
+    "fixtures/*"
+  ],
+  "watch": [
+    "config",
+    "mocks",
+    "scripts",
+    "vue.config.js"
+  ],
+  "delay": 1000
+}

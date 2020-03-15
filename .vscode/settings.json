@@ -1,0 +1,95 @@
+{
+  "telemetry.enableCrashReporter": false,
+  "telemetry.enableTelemetry": false,
+  "grunt.autoDetect": "off",
+  "gulp.autoDetect": "off",
+  "jake.autoDetect": "off",
+  "search.followSymlinks": false,
+  "search.exclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.tsbuildinfo": true,
+    "**/.tsbuildinfo.*": true,
+    "**/.history": true,
+    "**/node_modules/**": true,
+    "**/node_modules*/**": true,
+    "**/dist/**": true,
+    "yarn.lock": true,
+    "package-lock.json": true
+  },
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1500,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/.history": true,
+    "**/node_modules/**": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.history/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "yarn.lock": true,
+    "package-lock.json": true
+  },
+  "editor.minimap.enabled": false,
+  "emmet.syntaxProfiles": {
+    "vue-html": "html",
+    "vue": "html"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[typescript]": {
+    "editor.formatOnSave": false
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[vue]": {
+    "editor.formatOnSave": false
+  },
+  "vetur.validation.template": false,
+  "vetur.format.defaultFormatter.html": "prettier",
+  "cSpell.words": [
+    "cnpm",
+    "customizer",
+    "devtool",
+    "iview",
+    "globby"
+  ],
+  "cSpell.ignoreWords": [
+    "updatefound",
+    "scripthost",
+    "expressjs",
+    "mockjs",
+    "vuejs"
+  ],
+  "cSpell.ignorePaths": [
+    "**/.git/**",
+    "**/node_modules/**",
+    ".history",
+    ".vscode",
+    "dist",
+    "package-lock.json",
+    "yarn.lock"
+  ]
+}
