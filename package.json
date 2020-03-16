@@ -31,6 +31,7 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
+    "@types/braces": "^3.0.0",
     "@types/jest": "^24.0.19",
     "@types/lodash-es": "^4.17.3",
     "@types/node": "^13.9.1",
