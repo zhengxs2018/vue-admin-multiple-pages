@@ -1,0 +1,5 @@
+export const ESCAPE_SLASH = '\0SLASH' + Math.random() + '\0'
+export const ESCAPE_OPEN = '\0OPEN' + Math.random() + '\0'
+export const ESCAPE_CLOSE = '\0CLOSE' + Math.random() + '\0'
+export const ESCAPE_COMMA = '\0COMMA' + Math.random() + '\0'
+export const ESCAPE_PERIOD = '\0PERIOD' + Math.random() + '\0'
