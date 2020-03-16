@@ -8,7 +8,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "analyze": "source-map-explorer dist/static/js/**/*.js"
+    "analyze": "vue-cli-service build --analyze"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -62,7 +62,8 @@
     "sass": "^1.25.0",
     "sass-loader": "^8.0.2",
     "typescript": "~3.7.5",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^3.6.1"
   },
   "engines": {
     "node": ">= 10",

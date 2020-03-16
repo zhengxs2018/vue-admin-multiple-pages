@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { keyBy, mapValues, flatten, size } = require('lodash')
 
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
 const config = require('./config/index')
 const proxyTable = require('./config/proxy')
 const themeConfig = require('./config/theme-config')
@@ -13,13 +15,12 @@ const isProd = process.env.NODE_ENV === 'production'
 const isAnalyze =
   process.env.npm_config_analyze === 'true' ||
   process.argv.indexOf('--analyze') > -1
-const isDev = process.env.NODE_ENV === 'development'
 
 const vendors = config.vendors
 const pages = config.pages.map(createPage)
 
 const configureWebpack = {
-  devtool: isAnalyze || isDev ? 'source-map' : false
+  devtool: 'source-map'
 }
 
 if (isProd) {
@@ -27,6 +28,10 @@ if (isProd) {
 
   configureWebpack.externals = [vendors]
   configureWebpack.plugins = plugins
+
+  if (isAnalyze) {
+    configureWebpack.plugins.push(new BundleAnalyzerPlugin())
+  }
 }
 
 module.exports = {
@@ -35,7 +40,7 @@ module.exports = {
   assetsDir: config.assetsDir,
   pages: mapValues(keyBy(pages, 'name'), 'options'),
   lintOnSave: false,
-  productionSourceMap: isAnalyze || isDev,
+  productionSourceMap: false,
   css: {
     loaderOptions: {
       sass: {
