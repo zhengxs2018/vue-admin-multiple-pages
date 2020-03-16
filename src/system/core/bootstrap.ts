@@ -15,8 +15,8 @@ export abstract class AbstractAppBootHooks {
     // pass
   }
 
-  catchError(error: Error): void {
-    console.log('[error]', error.message)
+  catchError(type: string, error: Error): void {
+    console.log(`[${type}]`, error.message)
   }
 }
 
@@ -34,6 +34,6 @@ export async function startup(hooks: AbstractAppBootHooks): Promise<void> {
     mountApp(await hooks.createApp())
     await hooks.mounted()
   } catch (error) {
-    hooks.catchError(error)
+    hooks.catchError('startup', error)
   }
 }
