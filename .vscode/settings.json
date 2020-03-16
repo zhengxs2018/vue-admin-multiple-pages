@@ -70,11 +70,12 @@
   "vetur.validation.template": false,
   "vetur.format.defaultFormatter.html": "prettier",
   "cSpell.words": [
+    "builtins",
     "cnpm",
     "customizer",
     "devtool",
-    "iview",
-    "globby"
+    "globby",
+    "iview"
   ],
   "cSpell.ignoreWords": [
     "updatefound",
