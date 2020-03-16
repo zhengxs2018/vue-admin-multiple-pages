@@ -1,6 +1,6 @@
 import { forEach, set, get, stubTrue, stubFalse } from 'lodash-es'
 
-import { createTimer } from '@/system/lib/timer'
+import timed from '@/system/decorators/timed'
 
 export type AuthValidator = (...args: any[]) => boolean
 
@@ -13,16 +13,15 @@ export type Permission = {
   validator?: AuthValidator
 }
 
+@timed('auth.store', ['init'])
 export class AuthStore {
   private data: object = {}
 
   init(items: Permission[]) {
     const data = this.data
 
-    createTimer<void>('auth.store.init', () => {
-      forEach(items, ({ name, validator }) => {
-        set(data, name, validator || stubTrue)
-      })
+    forEach(items, ({ name, validator }) => {
+      set(data, name, validator || stubTrue)
     })
   }
 

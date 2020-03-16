@@ -16,7 +16,11 @@ export abstract class AbstractAppBootHooks {
   }
 
   catchError(type: string, error: Error): void {
-    console.log(`[${type}]`, error.message)
+    if (process.env.NODE_ENV === 'production') {
+      console.log(`[${type}]`, error.message)
+    } else {
+      console.error(error)
+    }
   }
 }
 
