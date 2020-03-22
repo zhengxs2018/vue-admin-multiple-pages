@@ -4,6 +4,7 @@ module.exports = {
     [
       'import',
       { libraryName: 'view-design', libraryDirectory: 'src/components' }
-    ]
+    ],
+    ['transform-async-to-promises', { inlineHelpers: true }]
   ]
 }
