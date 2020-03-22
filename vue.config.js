@@ -53,6 +53,7 @@ module.exports = {
   },
   configureWebpack,
   chainWebpack(config) {
+    config.module.rule('ts').use('babel-loader')
     config.module.noParse(new RegExp(`^(${Object.keys(vendors).join('|')})$`))
   },
   devServer: {
