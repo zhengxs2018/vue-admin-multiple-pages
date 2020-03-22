@@ -17,20 +17,16 @@
   </i-menu>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from 'vuex'
 
 import { Menu, MenuItem, Icon } from 'view-design'
 
 export default {
   name: 'side-menu',
-  computed: mapState('app', {
-    isCollapsed(state) {
-      return state.layout.collapsed
-    }
-  }),
+  computed: mapState('app', ['layout']),
   methods: {
-    onMenuActive(name) {
+    onMenuActive(this: Vue, name: string) {
       if (this.$route.name === name) return
       this.$router.push({ name })
     }

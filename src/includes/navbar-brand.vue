@@ -1,11 +1,11 @@
 <template>
   <div
     class="navbar-brand"
-    :class="{ 'navbar-brand--collapsed': isCollapsed }"
+    :class="{ 'navbar-brand--collapsed': layout.collapsed }"
     @click="goHome()"
   >
-    <img class="logo" src="@/assets/images/logo.png" />
-    <span class="title">{{ title }}</span>
+    <img class="logo" :src="site.logo" />
+    <span class="title">{{ site.title }}</span>
   </div>
 </template>
 
@@ -14,19 +14,10 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'navbar-brand',
-  computed: mapState('app', {
-    title(state) {
-      return state.site.title
-    },
-    isCollapsed(state) {
-      return state.layout.collapsed
-    }
-  }),
+  computed: mapState('app', ['site', 'layout']),
   methods: {
     goHome() {
-      const route = this.$route
-      if (!route || route.name === 'home') return
-      this.$router.push({ name: 'home' })
+      window.location.href = '/'
     }
   }
 }

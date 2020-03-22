@@ -1,20 +1,18 @@
 <template>
   <i-layout class="layout basic-layout">
     <i-header class="layout-header">
-      <navbar>
-        <template slot="left">
-          <toggle-button />
-        </template>
-      </navbar>
+      <include-navbar>
+        <include-toggle-button slot="left" />
+      </include-navbar>
     </i-header>
     <i-layout>
       <i-sider
-        :value="isCollapsed"
+        :value="layout.collapse"
         class="layout-aside"
         collapsible
         hide-trigger
       >
-        <side-menu />
+        <include-side-menu />
       </i-sider>
       <i-layout>
         <i-content>
@@ -28,25 +26,27 @@
 <script>
 import { mapState } from 'vuex'
 
-import { Sider } from 'view-design'
+import { Layout, Header, Sider, Content } from 'view-design'
 
 import ToggleButton from '@/includes/toggle-button.vue'
 import SideMenu from '@/includes/side-menu.vue'
-
-import BaseLayout from './classes/layout'
+import Navbar from '@/includes/navbar.vue'
 
 export default {
-  name: 'basic',
-  extends: BaseLayout,
-  computed: mapState('app', {
-    isCollapsed(state) {
-      return state.layout.collapsed
-    }
-  }),
+  name: 'basic-layout',
+  computed: mapState('app', ['layout']),
   components: {
+    'i-layout': Layout,
+    'i-header': Header,
     'i-sider': Sider,
-    'toggle-button': ToggleButton,
-    'side-menu': SideMenu
+    'i-content': Content,
+    'include-toggle-button': ToggleButton,
+    'include-side-menu': SideMenu,
+    'include-navbar': Navbar
   }
 }
 </script>
+
+<style lang="scss">
+@import '@/assets/styles/layout.scss';
+</style>

@@ -6,5 +6,15 @@ module.exports = {
       nickname: '@cname()',
       age: ''
     }
+  },
+  'GET /user/menus': {
+    code: 200,
+    message: 'ok',
+    data: [
+      {
+        title: '首页',
+        path: '/'
+      }
+    ]
   }
 }

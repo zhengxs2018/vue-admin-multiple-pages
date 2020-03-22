@@ -1,27 +1,18 @@
-import Vue from 'vue'
+import { createApp } from '@/system/core/app'
+import { setup } from '@/system/core/bootstrap'
 
-import { AbstractAppBootHooks, startup } from '@/system/core/bootstrap'
-import { AuthManager } from '@/system/lib/auth/manager'
+import BasicLayout from '@/layouts/basic.vue'
+import UserLayout from '@/layouts/user.vue'
 
 import store from '@/store'
 
-import App from './app'
 import router from './router'
 
-class AppBootHooks extends AbstractAppBootHooks {
-  async init() {
-    const auth = new AuthManager({
-      data: []
-    })
-    auth.has('user.create')
-  }
-  createApp() {
-    return new Vue({
-      store,
-      router,
-      render: h => h(App)
-    })
-  }
+const layouts = {
+  basic: BasicLayout,
+  user: UserLayout
 }
 
-startup(new AppBootHooks())
+setup(async () => {
+  return createApp({ router, store, layouts })
+})

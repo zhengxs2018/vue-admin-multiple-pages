@@ -16,10 +16,7 @@ export function loadRoutes(context: __WebpackModuleApi.RequireContext) {
 }
 
 export function createRouter(options: RouterOptions) {
-  const router = new VueRouter({
-    mode: 'history',
-    ...options
-  })
+  const router = new VueRouter(options)
 
   // 仅允许调试使用
   if (process.env.NODE_ENV === 'development') {

@@ -1,12 +1,30 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
+const { resolve } = require('path')
+const { existsSync, statSync } = require('fs')
 
-const { get } = require('lodash')
+const { get, size } = require('lodash')
 
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const PuppeteerRender = require('@prerenderer/renderer-puppeteer')
 
 const { assetsDir = 'static', outputDir = 'dist' } = require('../config/index')
+
+const workspaceFolder = resolve(__dirname, '..')
+const extensions = ['.ts', '.tsx', '.js', '.jsx', '.vue']
+
+const isFile = path => {
+  return existsSync(path) && statSync(path).isFile()
+}
+
+function getEntry(name) {
+  const extname = extensions.find(extname => {
+    return isFile(
+      resolve(workspaceFolder, `./src/pages/${name}/main${extname}`)
+    )
+  })
+  return `./src/pages/${name}/main${extname}`
+}
 
 /**
  * 创建页面配置
@@ -40,11 +58,11 @@ const { assetsDir = 'static', outputDir = 'dist' } = require('../config/index')
  *    }
  *  })
  */
-module.exports = function createPage(options) {
+function createPage(options) {
   const { name, base } = options
   const {
     route,
-    entry = `./src/pages/${name}/main.ts`,
+    entry = getEntry(name),
     filename = `${name}.html`,
     plugins = [],
     vendors = {},
@@ -52,7 +70,7 @@ module.exports = function createPage(options) {
     ...extraOptions
   } = options
 
-  if (get(vendors, 'externals.length', 0) > 0) {
+  if (get(vendors, 'packages.length', 0) > 0) {
     plugins.push(
       new HtmlWebpackExternalsPlugin({
         hash: true,
@@ -63,12 +81,19 @@ module.exports = function createPage(options) {
     )
   }
 
-  if (prerender.enabled !== false && get(options, 'routes.length', 0) > 0) {
+  if (prerender.enabled !== false && size(prerender.routes) > 0) {
+    const outputPath = resolve(workspaceFolder, outputDir)
+    const { routes, ...renderOptions } = prerender
     plugins.push(
       new PrerenderSPAPlugin({
-        indexPath: path.join(__dirname, '..', outputDir, filename),
-        routes: prerender.routes,
-        renderAfterDocumentEvent: prerender.onDocumentReadyEvent || 'on-mounted'
+        routes: routes,
+        staticDir: resolve(outputPath, name),
+        indexPath: resolve(outputPath, filename),
+        renderer: new PuppeteerRender({
+          renderAfterDocumentEvent: 'custom-render-ready',
+          renderAfterTime: 5000,
+          ...renderOptions
+        })
       })
     )
   }
@@ -77,7 +102,9 @@ module.exports = function createPage(options) {
     name: name,
     filename: filename,
     route: route || new RegExp(base || `/(${name})`),
-    options: { entry, filename, ...extraOptions },
+    options: { ...extraOptions, entry, filename },
     plugins: plugins
   }
 }
+
+module.exports = createPage

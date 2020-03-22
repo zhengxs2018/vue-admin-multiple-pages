@@ -1,14 +1,17 @@
 import { RouteConfig } from 'vue-router'
 
-import Home from '../views/index/home.vue'
+import List from '../views/product/list.vue'
 
 export default [
   {
     name: 'product-list',
     path: '/product/list',
-    component: Home,
+    component: List,
     meta: {
-      layout: 'user'
+      layout: {
+        name: 'user'
+      },
+      cache: true
     }
   }
 ] as RouteConfig[]

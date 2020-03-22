@@ -24,11 +24,19 @@ module.exports = {
       }
     },
     {
-      name: 'login',
-      title: `登录页 - ${APP_NAME}`,
+      name: 'passport',
+      title: `通行证 - ${APP_NAME}`,
       vendors: {
         enabled: isProd,
-        packages: requiredModules
+        packages: [
+          ...requiredModules,
+          { module: 'vue-router', entry: 'dist/vue-router.min.js' }
+        ]
+      },
+      prerender: {
+        enabled: isProd,
+        headless: false,
+        routes: ['/auth/login']
       }
     },
     {
@@ -36,10 +44,14 @@ module.exports = {
       title: `异常页 - ${APP_NAME}`,
       vendors: {
         enabled: isProd,
-        packages: requiredModules
+        packages: [
+          ...requiredModules,
+          { module: 'vue-router', entry: 'dist/vue-router.min.js' }
+        ]
       },
       prerender: {
         enabled: isProd,
+        headless: false,
         routes: ['/404', '/500']
       }
     }

@@ -8,7 +8,9 @@ export default [
     path: '/',
     component: Home,
     meta: {
-      layout: 'basic'
+      layout: {
+        name: 'basic'
+      }
     }
   }
 ] as RouteConfig[]

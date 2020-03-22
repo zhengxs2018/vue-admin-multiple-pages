@@ -1,6 +1,6 @@
 <template>
   <div class="page product-list-page">
-    This is product-list page.
+    This is product list page.
   </div>
 </template>
 

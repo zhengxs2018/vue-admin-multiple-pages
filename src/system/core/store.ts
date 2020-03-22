@@ -9,17 +9,7 @@ import { basename } from 'path-browserify'
 
 import { dynamicLoader } from '@/system/utils/functional'
 
-export function createStore<State>(options: StoreOptions<State>): Store<State> {
-  const store = new Store(options)
-
-  // 仅允许调试使用
-  if (process.env.NODE_ENV === 'development') {
-    // @ts-ignore
-    window.router = router
-  }
-
-  return store
-}
+Vue.use(Vuex)
 
 export function loadModules<R = any>(
   context: __WebpackModuleApi.RequireContext
@@ -33,4 +23,16 @@ export function loadModules<R = any>(
       return modules
     }
   })
+}
+
+export function createStore<State>(options: StoreOptions<State>): Store<State> {
+  const store = new Store(options)
+
+  // 仅允许调试使用
+  if (process.env.NODE_ENV === 'development') {
+    // @ts-ignore
+    window.router = router
+  }
+
+  return store
 }

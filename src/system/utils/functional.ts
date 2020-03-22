@@ -1,3 +1,5 @@
+import { isFunction } from 'lodash-es'
+
 // See .env
 const siteTitle = process.env.VUE_APP_TITLE || document.title
 
@@ -28,4 +30,8 @@ export function dynamicLoader<U = {}, T = never[]>(
   return context.keys().reduce((previousValue, filename) => {
     return resolver(previousValue as T, context(filename).default, filename)
   }, initialValue || []) as T
+}
+
+export function unwrap<T = string>(value: Function | T, ...args: any[]): T {
+  return isFunction(value) ? value(...args) : value
 }

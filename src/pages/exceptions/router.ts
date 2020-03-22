@@ -1,24 +1,24 @@
 import { createRouter } from '@/system/core/router'
 
-import NotFound from '@/pages/exceptions/views/NotFound.vue'
+import ServerError from '@/pages/exceptions/views/server-error.vue'
+import NotFound from '@/pages/exceptions/views/not-found.vue'
 
 const router = createRouter({
   routes: [
     {
-      name: 'notfound',
       path: '/404',
       component: NotFound
+    },
+    {
+      path: '/500',
+      component: ServerError
     }
   ]
 })
 
 router.addRoutes([
-  {
-    path: '*',
-    redirect(to) {
-      return { name: 'notfound', query: { next: to.fullPath } }
-    }
-  }
+  // fallback
+  { path: '*', redirect: '/404' }
 ])
 
 export default router
