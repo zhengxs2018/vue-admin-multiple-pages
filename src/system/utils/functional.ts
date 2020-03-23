@@ -1,17 +1,5 @@
 import { isFunction } from 'lodash-es'
 
-// See .env
-const siteTitle = process.env.VUE_APP_TITLE || document.title
-
-/**
- * 设置文档标题
- *
- * @param {String} title  标题
- */
-export function setTitle(title: string): void {
-  document.title = title ? `${title} - ${siteTitle}` : siteTitle
-}
-
 type LoaderOptions<U, T> = {
   initialValue?: T
   context: __WebpackModuleApi.RequireContext
@@ -32,6 +20,6 @@ export function dynamicLoader<U = {}, T = never[]>(
   }, initialValue || []) as T
 }
 
-export function unwrap<T = string>(value: Function | T, ...args: any[]): T {
+export function unwrap<T = any>(value: Function | T, ...args: any[]): T {
   return isFunction(value) ? value(...args) : value
 }

@@ -2,7 +2,7 @@
   <i-layout class="layout basic-layout">
     <i-header class="layout-header">
       <include-navbar>
-        <include-toggle-button slot="left" />
+        <!-- <include-toggle-button slot="left" /> -->
       </include-navbar>
     </i-header>
     <i-layout>
@@ -28,7 +28,7 @@ import { mapState } from 'vuex'
 
 import { Layout, Header, Sider, Content } from 'view-design'
 
-import ToggleButton from '@/includes/toggle-button.vue'
+// import ToggleButton from '@/includes/toggle-button.vue'
 import SideMenu from '@/includes/side-menu.vue'
 import Navbar from '@/includes/navbar.vue'
 
@@ -40,7 +40,7 @@ export default {
     'i-header': Header,
     'i-sider': Sider,
     'i-content': Content,
-    'include-toggle-button': ToggleButton,
+    // 'include-toggle-button': ToggleButton,
     'include-side-menu': SideMenu,
     'include-navbar': Navbar
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="toggle-button" @click="toggleLayoutCollapsed()">
+  <div class="toggle-button" @click="onToggleCollapsed()">
     <i-icon class="toggle-button__icon" type="ios-menu" />
   </div>
 </template>
@@ -11,12 +11,8 @@ import { Icon } from 'view-design'
 
 export default {
   name: 'toggle-button',
-  computed: mapState('app', {
-    isCollapsed(state) {
-      return state.layout.collapsed
-    }
-  }),
-  methods: mapMutations('app', ['toggleLayoutCollapsed']),
+  computed: mapState('app', ['layout']),
+  methods: mapMutations('app', ['onToggleCollapsed']),
   components: {
     'i-icon': Icon
   }

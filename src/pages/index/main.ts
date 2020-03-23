@@ -1,3 +1,5 @@
+import http from '@/system/lib/http'
+
 import { createApp } from '@/system/core/app'
 import { setup } from '@/system/core/bootstrap'
 
@@ -13,6 +15,11 @@ const layouts = {
   user: UserLayout
 }
 
+async function initialState() {
+  store.commit('app/onMenuLoad', await http.get('/api/v1/admin/menus'))
+}
+
 setup(async () => {
+  await initialState()
   return createApp({ router, store, layouts })
 })

@@ -1,6 +1,4 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
-
-import { get } from 'lodash-es'
+import axios, { AxiosRequestConfig } from 'axios'
 
 const http = axios.create({
   baseURL: '/',
@@ -13,23 +11,10 @@ const http = axios.create({
   withCredentials: true
 })
 
-function createError(res: object, extra?: object) {
-  const error = new Error(get(res, 'message', 'parse error'))
-  Object.assign(error, extra)
-  return Promise.reject(error)
-}
-
-function afterResponse(response: AxiosResponse) {
-  const res = response.data
-  if (get(res, 'code', -1) === 200) {
-    return res.data
-  }
-  return createError(res, { response })
-}
-
-http.interceptors.response.use(afterResponse, error => {
-  return Promise.reject(error)
-})
+http.interceptors.response.use(
+  res => res.data,
+  error => Promise.reject(error)
+)
 
 export function doGet<T = any>(
   path: string,

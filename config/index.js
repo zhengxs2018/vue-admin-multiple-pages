@@ -1,6 +1,7 @@
 const APP_NAME = process.env.VUE_APP_NAME
 
 const isProd = process.env.NODE_ENV === 'production'
+const isDebug = false
 
 const requiredModules = [
   { module: 'axios', entry: 'dist/axios.min.js' },
@@ -35,26 +36,26 @@ module.exports = {
       },
       prerender: {
         enabled: isProd,
-        headless: false,
+        headless: !isDebug,
         routes: ['/auth/login']
       }
-    },
-    {
-      name: 'exceptions',
-      title: `异常页 - ${APP_NAME}`,
-      vendors: {
-        enabled: isProd,
-        packages: [
-          ...requiredModules,
-          { module: 'vue-router', entry: 'dist/vue-router.min.js' }
-        ]
-      },
-      prerender: {
-        enabled: isProd,
-        headless: false,
-        routes: ['/404', '/500']
-      }
     }
+    // {
+    //   name: 'exceptions',
+    //   title: `异常页 - ${APP_NAME}`,
+    //   vendors: {
+    //     enabled: isProd,
+    //     packages: [
+    //       ...requiredModules,
+    //       { module: 'vue-router', entry: 'dist/vue-router.min.js' }
+    //     ]
+    //   },
+    //   prerender: {
+    //     enabled: isProd,
+    //     headless: !isDebug,
+    //     routes: ['/404', '/500']
+    //   }
+    // }
   ],
   vendors: {
     axios: 'axios',

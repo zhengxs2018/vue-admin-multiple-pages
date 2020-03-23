@@ -1,7 +1,9 @@
 <template>
-  <ux-page class="home-page">
+  <ux-page class="topics-page">
+    <include-breadcrumb slot="header" />
+
     <i-card :bordered="false" dis-hover style="height: 100%;">
-      This is home page.
+      This is topics page.
     </i-card>
   </ux-page>
 </template>
@@ -10,12 +12,14 @@
 import { Card } from 'view-design'
 
 import UxPage from '@/system/components/page'
+import Breadcrumb from '@/includes/breadcrumb'
 
 export default {
-  name: 'home-page',
+  name: 'topics-page',
   components: {
     'i-card': Card,
-    'ux-page': UxPage
+    'ux-page': UxPage,
+    'include-breadcrumb': Breadcrumb
   }
 }
 </script>

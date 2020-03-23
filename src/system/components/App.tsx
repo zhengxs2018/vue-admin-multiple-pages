@@ -1,33 +1,41 @@
 import { RouteRecord } from 'vue-router'
 import { Vue, Component, Prop } from 'vue-property-decorator'
 
-import { has, property, findLast } from 'lodash-es'
+import { has, findLast, isString } from 'lodash-es'
 
 import ViewCached from '../core/view-cache'
 
-const getLayoutNameForRoute = property<RouteRecord, string>('meta.layout.name')
+export type LayoutConfig = {
+  name?: string
+}
+
+const getLayoutConfigForRouting = (route: RouteRecord): LayoutConfig => {
+  const layout = route.meta?.layout || {}
+  return isString(layout) ? { name: layout } : layout
+}
 
 @Component
-export default class App extends Vue {
+export default class UxApp extends Vue {
   /** 页面布局 */
   @Prop() readonly layouts!: Record<string, any>
 
   /** 视图缓存控制器 */
   @Prop() readonly viewCache!: ViewCached
 
-  getLayoutNameForRouting(): string | void {
+  getLayoutConfigForRouting(): LayoutConfig {
     const matched = this.$route?.matched || []
-    if (matched.length === 0) return
+    if (matched.length === 0) return {}
 
-    const found = findLast<RouteRecord[]>(matched, getLayoutNameForRoute)
+    const found = findLast<RouteRecord[]>(matched, getLayoutConfigForRouting)
     if (found) {
-      return getLayoutNameForRoute(found as RouteRecord)
+      return getLayoutConfigForRouting(found as RouteRecord)
     }
+
+    return {}
   }
 
-  getLayout(): any | void {
+  getLayout(name?: string): any {
     const layouts = this.layouts
-    const name = this.getLayoutNameForRouting()
 
     return name && has(layouts, name) ? layouts[name] : void 0
   }
@@ -40,11 +48,12 @@ export default class App extends Vue {
       </keep-alive>
     )
 
-    const Layout = this.getLayout()
+    const config = this.getLayoutConfigForRouting()
+    const Layout = this.getLayout(config?.name || 'basic')
     if (Layout) {
       return (
         <div id="app">
-          <Layout>{routerView}</Layout>
+          <Layout {...config}>{routerView}</Layout>
         </div>
       )
     }

@@ -1,37 +1,42 @@
 <template>
-  <div class="page notfound-page">
-    <h2 class="title">404</h2>
-    <p class="message">Page not found!</p>
-  </div>
+  <ux-page>
+    <div class="msg">
+      <h2 class="msg-title">404</h2>
+      <p class="msg-text">Page not found!</p>
+    </div>
+  </ux-page>
 </template>
 
 <script>
+import UxPage from '@/system/components/page'
+
 export default {
-  name: 'not-found',
+  name: 'page-not-found-page',
   mounted() {
     document.dispatchEvent(new Event('custom-render-ready'))
+  },
+  components: {
+    'ux-page': UxPage
   }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/page.scss';
-
-.notfound-page {
+.msg {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100%;
 }
 
-.title {
-  font-size: 30px;
+.msg-title {
+  font-size: 180px;
   text-align: center;
 }
 
-.message {
-  margin-top: 20px;
-  font-size: 14px;
+.msg-text {
+  font-size: 40px;
   text-align: center;
 }
 </style>

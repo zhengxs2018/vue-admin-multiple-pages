@@ -1,7 +1,7 @@
 import Vue, { ComponentOptions } from 'vue'
 import VueRouter from 'vue-router'
 
-import App from '../components/App'
+import UXApp from '../components/app'
 
 import ViewCache from './view-cache'
 
@@ -17,10 +17,9 @@ export async function createApp(config: AppConfig): Promise<Vue> {
   return new Vue({
     router,
     ...options,
-    render: h => {
-      return h(App, {
-        props: { viewCache, layouts }
-      })
+    render() {
+      // @ts-ignore
+      return <UXApp view-cache={viewCache} layouts={layouts}></UXApp>
     }
   })
 }

@@ -1,19 +1,13 @@
 import { Module } from 'vuex'
+import { Route } from 'vue-router'
 
-interface MenuItem {
+import { TreeNode, rowToTree, eachTree } from '@/system/utils/tree'
+
+export interface MenuItem extends TreeNode {
   text: string
-  link: string
+  path: string
   target: string
-  rel: string
-}
-
-export interface NavIem extends MenuItem {
-  children: NavIem[]
-}
-
-export interface SideItem extends MenuItem {
-  collapse: boolean
-  children: SideItem[]
+  children: MenuItem[]
 }
 
 export type AppState = {
@@ -24,14 +18,16 @@ export type AppState = {
   }
   /* 布局配置 */
   layout: {
-    /* 顶部导航 */
-    nav: NavIem[]
     /* 侧边栏菜单 */
-    sidebar: SideItem[]
+    sidebar: MenuItem[]
+    /* 面包屑导航 */
+    breadcrumb: Route[]
     /* 是否收起侧边栏菜单 */
     collapsed: boolean
   }
 }
+
+const cache: Record<string, any> = {}
 
 export default {
   namespaced: true,
@@ -42,14 +38,35 @@ export default {
         title: process.env.VUE_APP_NAME || ''
       },
       layout: {
-        nav: [],
         sidebar: [],
+        breadcrumb: [],
         collapsed: false
       }
     }
   },
   mutations: {
-    toggleLayoutCollapsed(state) {
+    onRouteChange(state, route: Route) {
+      const path = route.path
+      const menuCache = cache.menus
+
+      if (path in menuCache) {
+        state.layout.breadcrumb = menuCache[path]
+      } else {
+        state.layout.breadcrumb = []
+      }
+    },
+    onMenuLoad(state, payload) {
+      const sidebar = rowToTree<MenuItem>(payload)
+      const pathsMapping: Record<string, MenuItem[]> = {}
+
+      eachTree<MenuItem>(sidebar, (node, parents) => {
+        pathsMapping[node.path] = parents.concat(node)
+      })
+
+      cache.menus = pathsMapping
+      state.layout.sidebar = sidebar
+    },
+    onToggleCollapsed(state) {
       const layout = state.layout
 
       layout.collapsed = !layout.collapsed

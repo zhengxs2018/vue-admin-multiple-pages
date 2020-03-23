@@ -1,40 +1,37 @@
 <template>
-  <i-menu
+  <ux-menu
     class="side-menu"
-    :active-name="$route.name"
+    :active-name="$route.path"
+    :items="layout.sidebar"
+    :index-key="getIndexKey"
     width="auto"
     accordion
     @on-select="onMenuActive"
   >
-    <i-menu-item name="home">
-      <i-icon type="ios-home"></i-icon>
-      <span>首页</span>
-    </i-menu-item>
-    <i-menu-item name="product-list">
-      <i-icon type="ios-home"></i-icon>
-      <span>产品列表</span>
-    </i-menu-item>
-  </i-menu>
+  </ux-menu>
 </template>
 
 <script lang="ts">
 import { mapState } from 'vuex'
 
-import { Menu, MenuItem, Icon } from 'view-design'
+import { MenuItem } from '@/store/modules/app'
+
+import UXMenu from '@/system/components/menu'
 
 export default {
   name: 'side-menu',
   computed: mapState('app', ['layout']),
   methods: {
-    onMenuActive(this: Vue, name: string) {
-      if (this.$route.name === name) return
-      this.$router.push({ name })
+    getIndexKey(type: string, props: MenuItem) {
+      return type === 'submenu' ? props['id'] : props['path']
+    },
+    onMenuActive(this: Vue, path: string) {
+      if (this.$route.path === path) return
+      this.$router.push(path)
     }
   },
   components: {
-    'i-menu': Menu,
-    'i-menu-item': MenuItem,
-    'i-icon': Icon
+    'ux-menu': UXMenu
   }
 }
 </script>

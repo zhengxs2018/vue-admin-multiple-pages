@@ -1,37 +1,42 @@
 <template>
-  <div class="page server-error-page">
-    <h2 class="title">500</h2>
-    <p class="message">Server error.</p>
-  </div>
+  <ux-page>
+    <div class="msg">
+      <h2 class="msg-title">500</h2>
+      <p class="msg-text">Server error.</p>
+    </div>
+  </ux-page>
 </template>
 
 <script>
+import UxPage from '@/system/components/page'
+
 export default {
-  name: 'server-error',
+  name: 'server-error-page',
   mounted() {
     document.dispatchEvent(new Event('custom-render-ready'))
+  },
+  components: {
+    'ux-page': UxPage
   }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/page.scss';
-
-.server-error-page {
+.msg {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100%;
 }
 
-.title {
-  font-size: 30px;
+.msg-title {
+  font-size: 180px;
   text-align: center;
 }
 
-.message {
-  margin-top: 20px;
-  font-size: 14px;
+.msg-text {
+  font-size: 40px;
   text-align: center;
 }
 </style>
