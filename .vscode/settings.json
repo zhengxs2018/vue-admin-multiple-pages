@@ -75,7 +75,8 @@
     "customizer",
     "devtool",
     "globby",
-    "iview"
+    "iview",
+    "webhooks"
   ],
   "cSpell.ignoreWords": [
     "updatefound",

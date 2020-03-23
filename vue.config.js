@@ -58,7 +58,7 @@ module.exports = {
   },
   devServer: {
     before(app) {
-      MockServer.create({ prefix: '/api' }).attach(app)
+      MockServer.create().attach(app)
     },
     proxy: size(proxyTable) > 0 ? proxyTable : undefined,
     historyApiFallback: {

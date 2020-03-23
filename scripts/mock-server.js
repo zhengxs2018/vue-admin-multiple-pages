@@ -15,7 +15,7 @@ class Server {
   }
 
   init(options = {}) {
-    const { root = 'mocks' } = options
+    const { root = 'mocks/api' } = options
 
     moduleLoader({ root }, rules => {
       if (Array.isArray(rules)) {
